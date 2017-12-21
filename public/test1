@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Security Go by Example: test1</title>
+    <link rel=stylesheet href="site.css">
+  </head>
+  <body>
+    <div class="example" id="test1">
+      <h2><a href="index.html">Security Go by Example</a>: test1</h2>
+      
+      <table>
+        
+        <tr>
+          <td class="docs">
+            <p><a href="https://golang.org/pkg/flag/">flag package</a> is the Go equivalent
+of Python <a href="https://docs.python.org/2/howto/argparse.html">argparse</a>.
+While not as powerful, it does what we expect it to do. It
+simplifies adding and parsing command line parameters, leaving us
+to concentrate on the tools. Most of our tools will need them to be
+actually useful (hardcoding URLs and IPs get old too fast).</p>
+
+          </td>
+          <td class="code empty leading">
+	        
+            
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            
+          </td>
+          <td class="code leading">
+	        
+            <div class="highlight"><pre><span class="kn">package</span> <span class="nx">main</span>
+</pre></div>
+
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            
+          </td>
+          <td class="code leading">
+	        
+            <div class="highlight"><pre><span class="kn">import</span> <span class="p">(</span>
+	<span class="s">&quot;flag&quot;</span>
+	<span class="s">&quot;fmt&quot;</span>
+<span class="p">)</span>
+</pre></div>
+
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            
+          </td>
+          <td class="code leading">
+	        
+            <div class="highlight"><pre><span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+</pre></div>
+
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>Declare flags
+Remember, flag methods return pointers</p>
+
+          </td>
+          <td class="code leading">
+	        
+            <div class="highlight"><pre>	<span class="nx">ipPtr</span> <span class="o">:=</span> <span class="nx">flag</span><span class="p">.</span><span class="nx">String</span><span class="p">(</span><span class="s">&quot;ip&quot;</span><span class="p">,</span> <span class="s">&quot;127.0.0.1&quot;</span><span class="p">,</span> <span class="s">&quot;target IP&quot;</span><span class="p">)</span>
+</pre></div>
+
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            
+          </td>
+          <td class="code leading">
+	        
+            <div class="highlight"><pre>	<span class="kd">var</span> <span class="nx">port</span> <span class="kt">int</span>
+	<span class="nx">flag</span><span class="p">.</span><span class="nx">IntVar</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">port</span><span class="p">,</span> <span class="s">&quot;port&quot;</span><span class="p">,</span> <span class="mi">8080</span><span class="p">,</span> <span class="s">&quot;Port&quot;</span><span class="p">)</span>
+</pre></div>
+
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            
+          </td>
+          <td class="code leading">
+	        
+            <div class="highlight"><pre>	<span class="nx">verbosePtr</span> <span class="o">:=</span> <span class="nx">flag</span><span class="p">.</span><span class="nx">Bool</span><span class="p">(</span><span class="s">&quot;verbose&quot;</span><span class="p">,</span> <span class="kc">true</span><span class="p">,</span> <span class="s">&quot;verbosity&quot;</span><span class="p">)</span>
+</pre></div>
+
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>Parse flags</p>
+
+          </td>
+          <td class="code leading">
+	        
+            <div class="highlight"><pre>	<span class="nx">flag</span><span class="p">.</span><span class="nx">Parse</span><span class="p">()</span>
+</pre></div>
+
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>Hack IP:port</p>
+
+          </td>
+          <td class="code leading">
+	        
+            <div class="highlight"><pre>	<span class="nx">fmt</span><span class="p">.</span><span class="nx">Printf</span><span class="p">(</span><span class="s">&quot;Hacking %s:%d!\n&quot;</span><span class="p">,</span> <span class="o">*</span><span class="nx">ipPtr</span><span class="p">,</span> <span class="nx">port</span><span class="p">)</span>
+</pre></div>
+
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>Display progress if verbose flag is set</p>
+
+          </td>
+          <td class="code">
+	        
+            <div class="highlight"><pre>	<span class="k">if</span> <span class="o">*</span><span class="nx">verbosePtr</span> <span class="p">{</span>
+		<span class="nx">fmt</span><span class="p">.</span><span class="nx">Printf</span><span class="p">(</span><span class="s">&quot;Pew pew!\n&quot;</span><span class="p">)</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+          </td>
+        </tr>
+        
+      </table>
+      
+      
+      <p class="footer">
+        by <a href="https://parsiya.net target="_blank"">Parsia Hakimian</a> | <a href="https://twitter.com/CryptoGangsta" target="_blank">@CryptoGangsta</a> | <a href="https://github.com/parsiya/securitygobyexample.com" target="_blank">source</a> | <a href="https://github.com/parsiya/securitygobyexample.com#license" target="_blank">license</a> | <a href="http://hackingwithgo.com" target="_blank">Hacking with Go Tutorials</a>
+      </p>
+      <p class="footer">Inspired by <a href="https://gobyexample.com" target="_blank">Go by Example</a> by <a href="https://twitter.com/mmcgrana" target="_blank">@mmcgrana</a>
+      </p>
+    </div>
+  </body>
+</html>
