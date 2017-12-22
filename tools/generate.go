@@ -105,7 +105,7 @@ func whichLexer(path string) string {
 	} else if strings.HasSuffix(path, ".sh") {
 		return "console"
 	}
-	panic("No                lexer                for                " + path)
+	panic("No lexer for " + path)
 	return ""
 }
 
@@ -175,7 +175,7 @@ func parseSegs(sourcePath string) ([]*Seg, string) {
 			} else {
 				segs[len(segs)-1].Docs = segs[len(segs)-1].Docs + "\n" + trimmed
 			}
-			debug("DOCS:                " + line)
+			debug("DOCS:" + line)
 			lastSeen = "docs"
 		} else if matchCode {
 			if newCode {
@@ -184,14 +184,14 @@ func parseSegs(sourcePath string) ([]*Seg, string) {
 			} else {
 				segs[len(segs)-1].Code = segs[len(segs)-1].Code + "\n" + line
 			}
-			debug("CODE:                " + line)
+			debug("CODE:" + line)
 			lastSeen = "code"
 		}
 	}
 	for i, seg := range segs {
 		seg.CodeEmpty = (seg.Code == "")
 		seg.CodeLeading = (i < (len(segs) - 1))
-		seg.CodeRun = strings.Contains(seg.Code, "package                main")
+		seg.CodeRun = strings.Contains(seg.Code, "package main")
 	}
 	return segs, filecontent
 }
@@ -207,7 +207,7 @@ func parseAndRenderSegs(sourcePath string) ([]*Seg, string) {
 			seg.CodeRendered = cachedPygmentize(lexer, seg.Code)
 		}
 	}
-	//                we                are                only                interested                in                the                'go'                code                to                pass                to                play.golang.org
+	// we are only interested in the 'go' code to pass to play.golang.org
 	if lexer != "go" {
 		filecontent = ""
 	}
@@ -221,7 +221,7 @@ func parseExamples() []*Example {
 		if (exampleName != "") && !strings.HasPrefix(exampleName, "#") {
 			example := Example{Name: exampleName}
 			exampleId := strings.ToLower(exampleName)
-			exampleId = strings.Replace(exampleId, "                ", "-", -1)
+			exampleId = strings.Replace(exampleId, " ", "-", -1)
 			exampleId = strings.Replace(exampleId, "/", "-", -1)
 			exampleId = strings.Replace(exampleId, "'", "", -1)
 			exampleId = dashPat.ReplaceAllString(exampleId, "-")
