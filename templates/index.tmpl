@@ -21,11 +21,20 @@
         <li><a href="{{.Id}}">{{.Name}}</a></li>
       {{end}}
       </ul>
-      <p class="footer">
-        by <a href="https://parsiya.net target="_blank"">Parsia Hakimian</a> | <a href="https://twitter.com/CryptoGangsta" target="_blank">@CryptoGangsta</a> | <a href="https://github.com/parsiya/securitygobyexample.com" target="_blank">source</a> | <a href="https://github.com/parsiya/securitygobyexample.com#license" target="_blank">license</a> | <a href="http://hackingwithgo.com" target="_blank">Hacking with Go Tutorials</a>
-      </p>
-      <p class="footer">Inspired by <a href="https://gobyexample.com" target="_blank">Go by Example</a> by <a href="https://twitter.com/mmcgrana" target="_blank">@mmcgrana</a>
-      </p>
+      {{ template "footer" . }}
     </div>
   </body>
 </html>
+
+{{ define "footer" }}
+    <p class="footer">
+        by <a href="https://parsiya.net target="_blank"">Parsia Hakimian</a> | 
+        <a href="https://twitter.com/CryptoGangsta" target="_blank">@CryptoGangsta</a> |
+        <a href="https://github.com/parsiya/securitygobyexample.com/" target="_blank">source</a> | 
+        <a href="https://github.com/parsiya/securitygobyexample.com#license" target="_blank">license</a> | 
+        <a href="http://hackingwithgo.com" target="_blank">Hacking with Go Tutorials</a>
+    </p>
+    <p class="footer">
+        Inspired by <a href="https://gobyexample.com" target="_blank">Go by Example</a> by <a href="https://twitter.com/mmcgrana" target="_blank">@mmcgrana</a>
+    </p>
+{{ end }}
