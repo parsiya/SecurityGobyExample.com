@@ -33,7 +33,7 @@ func main() {
 		lines := readLines(sourcePath)
 		for i, line := range lines {
 			if !foundLongLine && !commentPat.MatchString(line) && (utf8.RuneCountInString(line) > 58) {
-				fmt.Printf("measure:                %s:%d\n", sourcePath, i+1)
+				fmt.Printf("measure: %s:%d\n", sourcePath, i+1)
 				foundLongLine = true
 				foundLongFile = true
 			}

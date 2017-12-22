@@ -239,10 +239,11 @@ func parseExamples() []*Example {
 					example.Segs = append(example.Segs, sourceSegs)
 				}
 			}
-			newCodeHash := sha1Sum(example.GoCode)
-			if example.GoCodeHash != newCodeHash {
-				example.UrlHash = resetUrlHashFile(newCodeHash, example.GoCode, "examples/"+example.Id+"/"+example.Id+".hash")
-			}
+			// Disable code upload
+			// newCodeHash := sha1Sum(example.GoCode)
+			// if example.GoCodeHash != newCodeHash {
+			// 	example.UrlHash = resetUrlHashFile(newCodeHash, example.GoCode, "examples/"+example.Id+"/"+example.Id+".hash")
+			// }
 			examples = append(examples, &example)
 		}
 	}
