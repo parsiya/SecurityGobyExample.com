@@ -279,7 +279,7 @@ func main() {
 	copyFile("templates/site.css", siteDir+"/site.css")
 	copyFile("templates/favicon.ico", siteDir+"/favicon.ico")
 	copyFile("templates/404.html", siteDir+"/404.html")
-	copyFile("templates/play.png", siteDir+"/play.png")
+	// copyFile("templates/play.png", siteDir+"/play.png")
 	examples := parseExamples()
 	renderIndex(examples)
 	renderExamples(examples)
