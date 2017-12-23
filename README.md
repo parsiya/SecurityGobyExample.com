@@ -6,6 +6,9 @@ Also checkout Hacking with Go tutorials at [HackingwithGo.com](http://hackingwit
 ### Modified Build Toolchain
 I have modified the toolchain to work with Cygwin on Windows.
 
+- `tools/build`: Generate pages and store them in `public`.
+- `runme.sh`: Generate pages and upload `public` to the S3 bucket.
+
 ### License
 This work is copyright Parsia Hakimian and licensed under a
 [Creative Commons Attribution 3.0 Unported License][CC3-license].
