@@ -22,7 +22,8 @@ actually useful (hardcoding URLs and IPs get old too fast).</p>
 
           </td>
           <td class="code empty leading">
-	        
+          <!-- Disable code upload -->
+	        <!--  -->
             
           </td>
         </tr>
@@ -32,7 +33,8 @@ actually useful (hardcoding URLs and IPs get old too fast).</p>
             
           </td>
           <td class="code leading">
-	        
+          <!-- Disable code upload -->
+	        <!-- <a href="http://play.golang.org/p/PKRdgvXwSaU"><img title="Run code" src="play.png" class="run" /></a> -->
             <div class="highlight"><pre><span class="kn">package</span> <span class="nx">main</span>
 </pre></div>
 
@@ -44,7 +46,8 @@ actually useful (hardcoding URLs and IPs get old too fast).</p>
             
           </td>
           <td class="code leading">
-	        
+          <!-- Disable code upload -->
+	        <!--  -->
             <div class="highlight"><pre><span class="kn">import</span> <span class="p">(</span>
 	<span class="s">&quot;flag&quot;</span>
 	<span class="s">&quot;fmt&quot;</span>
@@ -59,7 +62,8 @@ actually useful (hardcoding URLs and IPs get old too fast).</p>
             
           </td>
           <td class="code leading">
-	        
+          <!-- Disable code upload -->
+	        <!--  -->
             <div class="highlight"><pre><span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
 </pre></div>
 
@@ -73,7 +77,8 @@ Remember, flag methods return pointers</p>
 
           </td>
           <td class="code leading">
-	        
+          <!-- Disable code upload -->
+	        <!--  -->
             <div class="highlight"><pre>	<span class="nx">ipPtr</span> <span class="o">:=</span> <span class="nx">flag</span><span class="p">.</span><span class="nx">String</span><span class="p">(</span><span class="s">&quot;ip&quot;</span><span class="p">,</span> <span class="s">&quot;127.0.0.1&quot;</span><span class="p">,</span> <span class="s">&quot;target IP&quot;</span><span class="p">)</span>
 </pre></div>
 
@@ -85,7 +90,8 @@ Remember, flag methods return pointers</p>
             
           </td>
           <td class="code leading">
-	        
+          <!-- Disable code upload -->
+	        <!--  -->
             <div class="highlight"><pre>	<span class="kd">var</span> <span class="nx">port</span> <span class="kt">int</span>
 	<span class="nx">flag</span><span class="p">.</span><span class="nx">IntVar</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">port</span><span class="p">,</span> <span class="s">&quot;port&quot;</span><span class="p">,</span> <span class="mi">8080</span><span class="p">,</span> <span class="s">&quot;Port&quot;</span><span class="p">)</span>
 </pre></div>
@@ -98,7 +104,8 @@ Remember, flag methods return pointers</p>
             
           </td>
           <td class="code leading">
-	        
+          <!-- Disable code upload -->
+	        <!--  -->
             <div class="highlight"><pre>	<span class="nx">verbosePtr</span> <span class="o">:=</span> <span class="nx">flag</span><span class="p">.</span><span class="nx">Bool</span><span class="p">(</span><span class="s">&quot;verbose&quot;</span><span class="p">,</span> <span class="kc">true</span><span class="p">,</span> <span class="s">&quot;verbosity&quot;</span><span class="p">)</span>
 </pre></div>
 
@@ -111,7 +118,8 @@ Remember, flag methods return pointers</p>
 
           </td>
           <td class="code leading">
-	        
+          <!-- Disable code upload -->
+	        <!--  -->
             <div class="highlight"><pre>	<span class="nx">flag</span><span class="p">.</span><span class="nx">Parse</span><span class="p">()</span>
 </pre></div>
 
@@ -124,7 +132,8 @@ Remember, flag methods return pointers</p>
 
           </td>
           <td class="code leading">
-	        
+          <!-- Disable code upload -->
+	        <!--  -->
             <div class="highlight"><pre>	<span class="nx">fmt</span><span class="p">.</span><span class="nx">Printf</span><span class="p">(</span><span class="s">&quot;Hacking %s:%d!\n&quot;</span><span class="p">,</span> <span class="o">*</span><span class="nx">ipPtr</span><span class="p">,</span> <span class="nx">port</span><span class="p">)</span>
 </pre></div>
 
@@ -137,7 +146,8 @@ Remember, flag methods return pointers</p>
 
           </td>
           <td class="code">
-	        
+          <!-- Disable code upload -->
+	        <!--  -->
             <div class="highlight"><pre>	<span class="k">if</span> <span class="o">*</span><span class="nx">verbosePtr</span> <span class="p">{</span>
 		<span class="nx">fmt</span><span class="p">.</span><span class="nx">Printf</span><span class="p">(</span><span class="s">&quot;Pew pew!\n&quot;</span><span class="p">)</span>
 	<span class="p">}</span>
@@ -150,11 +160,23 @@ Remember, flag methods return pointers</p>
       </table>
       
       
-      <p class="footer">
-        by <a href="https://parsiya.net target="_blank"">Parsia Hakimian</a> | <a href="https://twitter.com/CryptoGangsta" target="_blank">@CryptoGangsta</a> | <a href="https://github.com/parsiya/securitygobyexample.com" target="_blank">source</a> | <a href="https://github.com/parsiya/securitygobyexample.com#license" target="_blank">license</a> | <a href="http://hackingwithgo.com" target="_blank">Hacking with Go Tutorials</a>
+      <p class="next">
+        Next example: <a href="create-tcp-connections">Create TCP Connections</a>.
       </p>
-      <p class="footer">Inspired by <a href="https://gobyexample.com" target="_blank">Go by Example</a> by <a href="https://twitter.com/mmcgrana" target="_blank">@mmcgrana</a>
-      </p>
+      
+      
+    <p class="footer">
+        by <a href="https://parsiya.net" target="_blank">Parsia Hakimian</a> | 
+        <a href="https://twitter.com/CryptoGangsta" target="_blank">@CryptoGangsta</a> |
+        <a href="https://github.com/parsiya/securitygobyexample.com/blob/master/examples/test1" target="_blank">source</a> | 
+        <a href="https://github.com/parsiya/securitygobyexample.com#license" target="_blank">license</a> | 
+        <a href="http://hackingwithgo.com" target="_blank">Hacking with Go Tutorials</a>
+    </p>
+    <p class="footer">
+        Based on <a href="https://gobyexample.com" target="_blank">Go by Example</a> by <a href="https://twitter.com/mmcgrana" target="_blank">@mmcgrana</a>
+    </p>
+
     </div>
   </body>
 </html>
+

@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Security Go by Example: Create TCP Connections</title>
+    <link rel=stylesheet href="site.css">
+  </head>
+  <body>
+    <div class="example" id="create-tcp-connections">
+      <h2><a href="index.html">Security Go by Example</a>: Create TCP Connections</h2>
+      
+      <table>
+        
+        <tr>
+          <td class="docs">
+            <p><a href="https://godoc.org/net">net package</a> contains most of the networking code
+in Go.TCP connections are made with <a href="https://godoc.org/net#Dial">net.Dial</a>.</p>
+
+          </td>
+          <td class="code empty leading">
+          <!-- Disable code upload -->
+	        <!--  -->
+            
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            
+          </td>
+          <td class="code leading">
+          <!-- Disable code upload -->
+	        <!-- <a href="http://play.golang.org/p/"><img title="Run code" src="play.png" class="run" /></a> -->
+            <div class="highlight"><pre><span class="kn">package</span> <span class="nx">main</span>
+</pre></div>
+
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            
+          </td>
+          <td class="code leading">
+          <!-- Disable code upload -->
+	        <!--  -->
+            <div class="highlight"><pre><span class="kn">import</span> <span class="p">(</span>
+	<span class="s">&quot;fmt&quot;</span>
+	<span class="s">&quot;net&quot;</span>
+	<span class="s">&quot;time&quot;</span>
+<span class="p">)</span>
+</pre></div>
+
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            
+          </td>
+          <td class="code leading">
+          <!-- Disable code upload -->
+	        <!--  -->
+            <div class="highlight"><pre><span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+</pre></div>
+
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>Address can be created with <a href="https://godoc.org/net#JoinHostPort">net.JoinHostPort</a>.</p>
+
+          </td>
+          <td class="code leading">
+          <!-- Disable code upload -->
+	        <!--  -->
+            <div class="highlight"><pre>	<span class="nx">add1</span> <span class="o">:=</span> <span class="nx">net</span><span class="p">.</span><span class="nx">JoinHostPort</span><span class="p">(</span><span class="s">&quot;127.0.0.1&quot;</span><span class="p">,</span> <span class="s">&quot;1234&quot;</span><span class="p">)</span>
+</pre></div>
+
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>&ldquo;127.0.0.1:1234&rdquo;</p>
+
+          </td>
+          <td class="code leading">
+          <!-- Disable code upload -->
+	        <!--  -->
+            <div class="highlight"><pre>	<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">add1</span><span class="p">)</span>
+</pre></div>
+
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>It also takes care of IPv6 addresses</p>
+
+          </td>
+          <td class="code leading">
+          <!-- Disable code upload -->
+	        <!--  -->
+            <div class="highlight"><pre>	<span class="nx">add2</span> <span class="o">:=</span> <span class="nx">net</span><span class="p">.</span><span class="nx">JoinHostPort</span><span class="p">(</span><span class="s">&quot;2001:db8::1&quot;</span><span class="p">,</span> <span class="s">&quot;1111&quot;</span><span class="p">)</span>
+</pre></div>
+
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            
+          </td>
+          <td class="code leading">
+          <!-- Disable code upload -->
+	        <!--  -->
+            <div class="highlight"><pre>	<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">add2</span><span class="p">)</span>
+</pre></div>
+
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>net.Dial accepts a network and an address.
+TCP networks are &ldquo;tcp&rdquo;, &ldquo;tcp4&rdquo; and &ldquo;tcp6.&rdquo; In most cases we will be using
+the general &ldquo;tcp&rdquo; network and let the package choose one.
+Address must be a combination of &ldquo;host:port.&rdquo;</p>
+
+          </td>
+          <td class="code leading">
+          <!-- Disable code upload -->
+	        <!--  -->
+            <div class="highlight"><pre>	<span class="nx">conn</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">net</span><span class="p">.</span><span class="nx">Dial</span><span class="p">(</span><span class="s">&quot;tcp&quot;</span><span class="p">,</span> <span class="s">&quot;127.0.0.1:22&quot;</span><span class="p">)</span>
+</pre></div>
+
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>Host can also be a resolvable host name.</p>
+
+          </td>
+          <td class="code leading">
+          <!-- Disable code upload -->
+	        <!--  -->
+            <div class="highlight"><pre>	<span class="nx">conn</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">net</span><span class="p">.</span><span class="nx">Dial</span><span class="p">(</span><span class="s">&quot;tcp&quot;</span><span class="p">,</span> <span class="s">&quot;example.com:80&quot;</span><span class="p">)</span>
+</pre></div>
+
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>DialTimeout sets a time out automatically</p>
+
+          </td>
+          <td class="code leading">
+          <!-- Disable code upload -->
+	        <!--  -->
+            <div class="highlight"><pre>	<span class="nx">ts</span> <span class="o">:=</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Second</span> <span class="o">*</span> <span class="mi">5</span>
+	<span class="nx">conn</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">net</span><span class="p">.</span><span class="nx">DialTimeout</span><span class="p">(</span><span class="s">&quot;tcp&quot;</span><span class="p">,</span> <span class="s">&quot;example.com:80&quot;</span><span class="p">,</span> <span class="nx">ts</span><span class="p">)</span>
+</pre></div>
+
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>Return local and remote addresses</p>
+
+          </td>
+          <td class="code leading">
+          <!-- Disable code upload -->
+	        <!--  -->
+            <div class="highlight"><pre>	<span class="nx">laddr</span> <span class="o">:=</span> <span class="nx">conn</span><span class="p">.</span><span class="nx">LocalAddr</span><span class="p">()</span>
+	<span class="nx">raddr</span> <span class="o">:=</span> <span class="nx">conn</span><span class="p">.</span><span class="nx">RemoteAddr</span><span class="p">()</span>
+</pre></div>
+
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>Set time out after Dial - 0 means connection will never time out</p>
+
+          </td>
+          <td class="code leading">
+          <!-- Disable code upload -->
+	        <!--  -->
+            <div class="highlight"><pre>	<span class="nx">timeout</span> <span class="o">:=</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Second</span> <span class="o">*</span> <span class="mi">5</span>
+	<span class="nx">err</span> <span class="o">:=</span> <span class="nx">conn</span><span class="p">.</span><span class="nx">SetDeadline</span><span class="p">(</span><span class="nx">timeout</span><span class="p">)</span>
+</pre></div>
+
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>It&rsquo;s possible to have different time outs for read/write</p>
+
+          </td>
+          <td class="code leading">
+          <!-- Disable code upload -->
+	        <!--  -->
+            <div class="highlight"><pre>	<span class="nx">err</span> <span class="o">:=</span> <span class="nx">conn</span><span class="p">.</span><span class="nx">SetReadDeadline</span><span class="p">(</span><span class="nx">timeout</span><span class="p">)</span>
+	<span class="nx">err</span> <span class="o">:=</span> <span class="nx">conn</span><span class="p">.</span><span class="nx">SetWriteDeadline</span><span class="p">(</span><span class="nx">timeout</span><span class="p">)</span>
+</pre></div>
+
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>Read, reads from the connection and writes into a []byte. Returns the
+number of bytes read.</p>
+
+          </td>
+          <td class="code leading">
+          <!-- Disable code upload -->
+	        <!--  -->
+            <div class="highlight"><pre>	<span class="kd">var</span> <span class="nx">buf</span> <span class="p">[]</span><span class="kt">byte</span>
+	<span class="nx">n</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">conn</span><span class="p">.</span><span class="nx">Read</span><span class="p">(</span><span class="nx">buf</span><span class="p">)</span>
+</pre></div>
+
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>Write is similar. Returns the number of bytes written.</p>
+
+          </td>
+          <td class="code leading">
+          <!-- Disable code upload -->
+	        <!--  -->
+            <div class="highlight"><pre>	<span class="nx">n</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">conn</span><span class="p">.</span><span class="nx">Write</span><span class="p">(</span><span class="nx">buf</span><span class="p">)</span>
+</pre></div>
+
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>Create a bufio.Reader from connection</p>
+
+          </td>
+          <td class="code leading">
+          <!-- Disable code upload -->
+	        <!--  -->
+            <div class="highlight"><pre>	<span class="nx">connReader</span> <span class="o">:=</span> <span class="nx">bufio</span><span class="p">.</span><span class="nx">NewReader</span><span class="p">(</span><span class="nx">conn</span><span class="p">)</span>
+</pre></div>
+
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>ReadString until a null byte</p>
+
+          </td>
+          <td class="code leading">
+          <!-- Disable code upload -->
+	        <!--  -->
+            <div class="highlight"><pre>	<span class="nx">str</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">connReader</span><span class="p">.</span><span class="nx">ReadString</span><span class="p">(</span><span class="nb">byte</span><span class="p">(</span><span class="mh">0x00</span><span class="p">))</span>
+</pre></div>
+
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>ReadBytes until a null byte</p>
+
+          </td>
+          <td class="code leading">
+          <!-- Disable code upload -->
+	        <!--  -->
+            <div class="highlight"><pre>	<span class="nx">buf</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">connReader</span><span class="p">.</span><span class="nx">ReadBytes</span><span class="p">(</span><span class="nb">byte</span><span class="p">(</span><span class="mh">0x00</span><span class="p">))</span>
+</pre></div>
+
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>Or create a scanner from bufio.Reader</p>
+
+          </td>
+          <td class="code leading">
+          <!-- Disable code upload -->
+	        <!--  -->
+            <div class="highlight"><pre>	<span class="nx">scanner</span> <span class="o">:=</span> <span class="nx">bufio</span><span class="p">.</span><span class="nx">NewScanner</span><span class="p">(</span><span class="nx">connReader</span><span class="p">)</span>
+</pre></div>
+
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>Read from scanner</p>
+
+          </td>
+          <td class="code leading">
+          <!-- Disable code upload -->
+	        <!--  -->
+            <div class="highlight"><pre>	<span class="k">for</span> <span class="nx">scanner</span><span class="p">.</span><span class="nx">Scan</span><span class="p">()</span> <span class="p">{</span>
+		<span class="nx">fmt</span><span class="p">.</span><span class="nx">Printf</span><span class="p">(</span><span class="s">&quot;%s\n&quot;</span><span class="p">,</span> <span class="nx">scanner</span><span class="p">.</span><span class="nx">Text</span><span class="p">())</span>
+	<span class="p">}</span>
+</pre></div>
+
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>Check if scanner has quit with an error</p>
+
+          </td>
+          <td class="code leading">
+          <!-- Disable code upload -->
+	        <!--  -->
+            <div class="highlight"><pre>	<span class="k">if</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">scanner</span><span class="p">.</span><span class="nx">Err</span><span class="p">();</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+		<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">&quot;Scanner error&quot;</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span>
+	<span class="p">}</span>
+</pre></div>
+
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>net contains TCP specific methods.</p>
+
+          </td>
+          <td class="code empty leading">
+          <!-- Disable code upload -->
+	        <!--  -->
+            
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p><a href="https://golang.org/pkg/net/#ResolveTCPAddr">ResolveTCPAddr</a> converts
+a host:port address to a *TCPAddr.</p>
+
+          </td>
+          <td class="code leading">
+          <!-- Disable code upload -->
+	        <!--  -->
+            <div class="highlight"><pre>	<span class="nx">tcpAddr</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">net</span><span class="p">.</span><span class="nx">ResolveTCPAddr</span><span class="p">(</span><span class="s">&quot;tcp&quot;</span><span class="p">,</span> <span class="s">&quot;127.0.0.1:22&quot;</span><span class="p">)</span>
+	<span class="nx">tcpAddr</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">net</span><span class="p">.</span><span class="nx">ResolveTCPAddr</span><span class="p">(</span><span class="s">&quot;tcp&quot;</span><span class="p">,</span>
+		<span class="nx">net</span><span class="p">.</span><span class="nx">JoinHostPort</span><span class="p">(</span><span class="s">&quot;127.0.0.1&quot;</span><span class="p">,</span> <span class="s">&quot;22&quot;</span><span class="p">))</span>
+</pre></div>
+
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>TCPAddr can be used in <a href="https://godoc.org/net#DialTCP">net.DialTCP</a>.
+DialTCP is similar to Dial with additional methods.
+tcpConn can be fed into any function that accepts net.Conn</p>
+
+          </td>
+          <td class="code">
+          <!-- Disable code upload -->
+	        <!--  -->
+            <div class="highlight"><pre>	<span class="nx">tcpConn</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">DialTCP</span><span class="p">(</span><span class="s">&quot;tcp&quot;</span><span class="p">,</span> <span class="nx">tcpAddr</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+
+          </td>
+        </tr>
+        
+      </table>
+      
+      
+      
+    <p class="footer">
+        by <a href="https://parsiya.net" target="_blank">Parsia Hakimian</a> | 
+        <a href="https://twitter.com/CryptoGangsta" target="_blank">@CryptoGangsta</a> |
+        <a href="https://github.com/parsiya/securitygobyexample.com/blob/master/examples/create-tcp-connections" target="_blank">source</a> | 
+        <a href="https://github.com/parsiya/securitygobyexample.com#license" target="_blank">license</a> | 
+        <a href="http://hackingwithgo.com" target="_blank">Hacking with Go Tutorials</a>
+    </p>
+    <p class="footer">
+        Based on <a href="https://gobyexample.com" target="_blank">Go by Example</a> by <a href="https://twitter.com/mmcgrana" target="_blank">@mmcgrana</a>
+    </p>
+
+    </div>
+  </body>
+</html>
+

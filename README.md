@@ -1,5 +1,5 @@
 ## Security Go by Example
-Source for [Security Go by Example](https://SecurityGobyExample.com). A hands-on introduction to Go for security professionals and inspired by the excellent [Go by Example](https://gobyexample.com).
+Source for [Security Go by Example](http://SecurityGobyExample.com). A hands-on introduction to Go for security professionals and inspired by the excellent [Go by Example](https://gobyexample.com).
 
 Also checkout Hacking with Go tutorials at [HackingwithGo.com](http://hackingwithgo.com).
 
