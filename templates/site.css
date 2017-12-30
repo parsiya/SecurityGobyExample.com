@@ -135,6 +135,9 @@ td.code.empty {
 pre, code {
     font-size: 14px; line-height: 18px;
     font-family: 'Menlo', 'Monaco', 'Consolas', 'Lucida Console', monospace;
+    tab-size: 4;
+    -moz-tab-size: 4;
+    -o-tab-size: 4;
 }
 img.run {
   height: 16px;
