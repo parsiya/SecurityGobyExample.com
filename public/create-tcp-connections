@@ -380,6 +380,10 @@ tcpConn can be fed into any function that accepts net.Conn</p>
       </table>
       
       
+      <p class="next">
+        Next example: <a href="urfave-cli-subcommands">urfave-cli Subcommands</a>.
+      </p>
+      
       
     <p class="footer">
         by <a href="https://parsiya.net" target="_blank">Parsia Hakimian</a> | 

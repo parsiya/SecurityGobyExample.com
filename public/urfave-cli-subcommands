@@ -1,0 +1,817 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Security Go by Example: urfave-cli Subcommands</title>
+    <link rel=stylesheet href="site.css">
+  </head>
+  <body>
+    <div class="example" id="urfave-cli-subcommands">
+      <h2><a href="index.html">Security Go by Example</a>: urfave-cli Subcommands</h2>
+      
+      <table>
+        
+        <tr>
+          <td class="docs">
+            <p><a href="https://github.com/urfave/cli">urfave-cli</a> is a popular CLI package.
+In this example we will show how to use it to create sub commands and
+act on them.</p>
+
+          </td>
+          <td class="code empty leading">
+          <!-- Disable code upload -->
+	        <!--  -->
+            
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>godoc: <a href="https://godoc.org/github.com/urfave/cli">https://godoc.org/github.com/urfave/cli</a></p>
+
+          </td>
+          <td class="code empty leading">
+          <!-- Disable code upload -->
+	        <!--  -->
+            
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            
+          </td>
+          <td class="code leading">
+          <!-- Disable code upload -->
+	        <!-- <a href="http://play.golang.org/p/"><img title="Run code" src="play.png" class="run" /></a> -->
+            <div class="highlight"><pre><span class="kn">package</span> <span class="nx">main</span>
+</pre></div>
+
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            
+          </td>
+          <td class="code leading">
+          <!-- Disable code upload -->
+	        <!--  -->
+            <div class="highlight"><pre><span class="kn">import</span> <span class="p">(</span>
+	<span class="s">&quot;fmt&quot;</span>
+	<span class="s">&quot;os&quot;</span>
+</pre></div>
+
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>go get before using it</p>
+
+          </td>
+          <td class="code leading">
+          <!-- Disable code upload -->
+	        <!--  -->
+            <div class="highlight"><pre>	<span class="s">&quot;github.com/urfave/cli&quot;</span>
+<span class="p">)</span>
+</pre></div>
+
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>Variable to hold subcommands</p>
+
+          </td>
+          <td class="code leading">
+          <!-- Disable code upload -->
+	        <!--  -->
+            <div class="highlight"><pre><span class="kd">var</span> <span class="p">(</span>
+</pre></div>
+
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            
+          </td>
+          <td class="code leading">
+          <!-- Disable code upload -->
+	        <!--  -->
+            <div class="highlight"><pre>	<span class="nx">cmds</span> <span class="p">[]</span><span class="nx">cli</span><span class="p">.</span><span class="nx">Command</span>
+<span class="p">)</span>
+</pre></div>
+
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>Subcommands can be processed in init.</p>
+
+          </td>
+          <td class="code leading">
+          <!-- Disable code upload -->
+	        <!--  -->
+            <div class="highlight"><pre><span class="kd">func</span> <span class="nx">init</span><span class="p">()</span> <span class="p">{</span>
+</pre></div>
+
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>Defining subcommands</p>
+
+          </td>
+          <td class="code leading">
+          <!-- Disable code upload -->
+	        <!--  -->
+            <div class="highlight"><pre>	<span class="nx">cmds</span> <span class="p">=</span> <span class="p">[]</span><span class="nx">cli</span><span class="p">.</span><span class="nx">Command</span><span class="p">{</span>
+		<span class="p">{</span>
+</pre></div>
+
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>Name of subcommand</p>
+
+          </td>
+          <td class="code leading">
+          <!-- Disable code upload -->
+	        <!--  -->
+            <div class="highlight"><pre>			<span class="nx">Name</span><span class="p">:</span> <span class="s">&quot;hack&quot;</span><span class="p">,</span>
+</pre></div>
+
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>Aliases (similar to alternate flags) stored in a string slice</p>
+
+          </td>
+          <td class="code leading">
+          <!-- Disable code upload -->
+	        <!--  -->
+            <div class="highlight"><pre>			<span class="nx">Aliases</span><span class="p">:</span> <span class="p">[]</span><span class="kt">string</span><span class="p">{</span><span class="s">&quot;haxorx&quot;</span><span class="p">,</span> <span class="s">&quot;pwn&quot;</span><span class="p">},</span>
+</pre></div>
+
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>Usage text - using `` to create placeholders is not supported here</p>
+
+          </td>
+          <td class="code leading">
+          <!-- Disable code upload -->
+	        <!--  -->
+            <div class="highlight"><pre>			<span class="nx">Usage</span><span class="p">:</span> <span class="s">&quot;hack target&quot;</span><span class="p">,</span>
+</pre></div>
+
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>Function to call when this sub command is activated
+Similar to app.Action, this function should be of type
+cli.ActionFunc == func (*cli.Context) error</p>
+
+          </td>
+          <td class="code leading">
+          <!-- Disable code upload -->
+	        <!--  -->
+            <div class="highlight"><pre>			<span class="nx">Action</span><span class="p">:</span> <span class="nx">act</span><span class="p">,</span>
+</pre></div>
+
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>Subcommand category</p>
+
+          </td>
+          <td class="code leading">
+          <!-- Disable code upload -->
+	        <!--  -->
+            <div class="highlight"><pre>			<span class="nx">Category</span><span class="p">:</span> <span class="s">&quot;Hacking&quot;</span><span class="p">,</span>
+		<span class="p">},</span>
+		<span class="p">{</span>
+			<span class="nx">Name</span><span class="p">:</span>    <span class="s">&quot;crack&quot;</span><span class="p">,</span>
+			<span class="nx">Aliases</span><span class="p">:</span> <span class="p">[]</span><span class="kt">string</span><span class="p">{</span><span class="s">&quot;c&quot;</span><span class="p">},</span>
+			<span class="nx">Usage</span><span class="p">:</span>   <span class="s">&quot;crack target&quot;</span><span class="p">,</span>
+</pre></div>
+
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>It&rsquo;s possible to use the same function for different subcommands
+(they do not have to be in the same category) and then detect
+the command inside.</p>
+
+          </td>
+          <td class="code leading">
+          <!-- Disable code upload -->
+	        <!--  -->
+            <div class="highlight"><pre>			<span class="nx">Action</span><span class="p">:</span>   <span class="nx">act</span><span class="p">,</span>
+			<span class="nx">Category</span><span class="p">:</span> <span class="s">&quot;Hacking&quot;</span><span class="p">,</span>
+		<span class="p">},</span>
+		<span class="p">{</span>
+			<span class="nx">Name</span><span class="p">:</span>    <span class="s">&quot;scan&quot;</span><span class="p">,</span>
+			<span class="nx">Aliases</span><span class="p">:</span> <span class="p">[]</span><span class="kt">string</span><span class="p">{</span><span class="s">&quot;s&quot;</span><span class="p">},</span>
+			<span class="nx">Usage</span><span class="p">:</span>   <span class="s">&quot;scan target&quot;</span><span class="p">,</span>
+</pre></div>
+
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>Different function for this subcommand.</p>
+
+          </td>
+          <td class="code leading">
+          <!-- Disable code upload -->
+	        <!--  -->
+            <div class="highlight"><pre>			<span class="nx">Action</span><span class="p">:</span>   <span class="nx">scan</span><span class="p">,</span>
+			<span class="nx">Category</span><span class="p">:</span> <span class="s">&quot;Recon&quot;</span><span class="p">,</span>
+		<span class="p">},</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>Create a new app</p>
+
+          </td>
+          <td class="code leading">
+          <!-- Disable code upload -->
+	        <!--  -->
+            <div class="highlight"><pre><span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+</pre></div>
+
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            
+          </td>
+          <td class="code leading">
+          <!-- Disable code upload -->
+	        <!--  -->
+            <div class="highlight"><pre>	<span class="nx">app</span> <span class="o">:=</span> <span class="nx">cli</span><span class="p">.</span><span class="nx">NewApp</span><span class="p">()</span>
+</pre></div>
+
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>Set name of the program</p>
+
+          </td>
+          <td class="code leading">
+          <!-- Disable code upload -->
+	        <!--  -->
+            <div class="highlight"><pre>	<span class="nx">app</span><span class="p">.</span><span class="nx">Name</span> <span class="p">=</span> <span class="s">&quot;AppName&quot;</span>
+</pre></div>
+
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>Set application usage</p>
+
+          </td>
+          <td class="code leading">
+          <!-- Disable code upload -->
+	        <!--  -->
+            <div class="highlight"><pre>	<span class="nx">app</span><span class="p">.</span><span class="nx">Usage</span> <span class="p">=</span> <span class="s">&quot;application usage&quot;</span>
+</pre></div>
+
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>Set application description</p>
+
+          </td>
+          <td class="code leading">
+          <!-- Disable code upload -->
+	        <!--  -->
+            <div class="highlight"><pre>	<span class="nx">app</span><span class="p">.</span><span class="nx">Description</span> <span class="p">=</span> <span class="s">&quot;description two&quot;</span>
+</pre></div>
+
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>Set application version - if not set version is &ldquo;0.0.0&rdquo;</p>
+
+          </td>
+          <td class="code leading">
+          <!-- Disable code upload -->
+	        <!--  -->
+            <div class="highlight"><pre>	<span class="nx">app</span><span class="p">.</span><span class="nx">Version</span> <span class="p">=</span> <span class="s">&quot;1.2.3.4&quot;</span>
+</pre></div>
+
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>Hide version in usage</p>
+
+          </td>
+          <td class="code leading">
+          <!-- Disable code upload -->
+	        <!--  -->
+            <div class="highlight"><pre>	<span class="nx">app</span><span class="p">.</span><span class="nx">HideVersion</span> <span class="p">=</span> <span class="kc">true</span>
+</pre></div>
+
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>Set author name</p>
+
+          </td>
+          <td class="code leading">
+          <!-- Disable code upload -->
+	        <!--  -->
+            <div class="highlight"><pre>	<span class="nx">app</span><span class="p">.</span><span class="nx">Author</span> <span class="p">=</span> <span class="s">&quot;Author1&quot;</span>
+</pre></div>
+
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>Set author email</p>
+
+          </td>
+          <td class="code leading">
+          <!-- Disable code upload -->
+	        <!--  -->
+            <div class="highlight"><pre>	<span class="nx">app</span><span class="p">.</span><span class="nx">Email</span> <span class="p">=</span> <span class="s">&quot;author1@example.com&quot;</span>
+</pre></div>
+
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>For multiple authors we need to create a slice of cli.Author
+Author has two fields, Name and Email (both string)
+First Authors list will be printed and then Author</p>
+
+          </td>
+          <td class="code leading">
+          <!-- Disable code upload -->
+	        <!--  -->
+            <div class="highlight"><pre>	<span class="nx">app</span><span class="p">.</span><span class="nx">Authors</span> <span class="p">=</span> <span class="p">[]</span><span class="nx">cli</span><span class="p">.</span><span class="nx">Author</span><span class="p">{</span>
+		<span class="p">{</span><span class="s">&quot;Author2&quot;</span><span class="p">,</span> <span class="s">&quot;author2@example.com&quot;</span><span class="p">},</span>
+		<span class="p">{</span><span class="s">&quot;Author3&quot;</span><span class="p">,</span> <span class="s">&quot;author3@example.com&quot;</span><span class="p">},</span>
+	<span class="p">}</span>
+</pre></div>
+
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>Set subcommands</p>
+
+          </td>
+          <td class="code leading">
+          <!-- Disable code upload -->
+	        <!--  -->
+            <div class="highlight"><pre>	<span class="nx">app</span><span class="p">.</span><span class="nx">Commands</span> <span class="p">=</span> <span class="nx">cmds</span>
+</pre></div>
+
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>Called if no arguments are provided at runtime.
+Expects type cli.ActionFunc == &ldquo;func (*cli.Context) error&rdquo;</p>
+
+          </td>
+          <td class="code leading">
+          <!-- Disable code upload -->
+	        <!--  -->
+            <div class="highlight"><pre>	<span class="nx">app</span><span class="p">.</span><span class="nx">Action</span> <span class="p">=</span> <span class="nx">noArgs</span>
+</pre></div>
+
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>Run the app</p>
+
+          </td>
+          <td class="code leading">
+          <!-- Disable code upload -->
+	        <!--  -->
+            <div class="highlight"><pre>	<span class="nx">app</span><span class="p">.</span><span class="nx">Run</span><span class="p">(</span><span class="nx">os</span><span class="p">.</span><span class="nx">Args</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>noArgs will run if no arguments are provided</p>
+
+          </td>
+          <td class="code leading">
+          <!-- Disable code upload -->
+	        <!--  -->
+            <div class="highlight"><pre><span class="kd">func</span> <span class="nx">noArgs</span><span class="p">(</span><span class="nx">c</span> <span class="o">*</span><span class="nx">cli</span><span class="p">.</span><span class="nx">Context</span><span class="p">)</span> <span class="kt">error</span> <span class="p">{</span>
+</pre></div>
+
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>Print app usage</p>
+
+          </td>
+          <td class="code leading">
+          <!-- Disable code upload -->
+	        <!--  -->
+            <div class="highlight"><pre>	<span class="nx">cli</span><span class="p">.</span><span class="nx">ShowAppHelp</span><span class="p">(</span><span class="nx">c</span><span class="p">)</span>
+</pre></div>
+
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>It&rsquo;s possible to change the return status code and error here
+cli.NewExitError creates a a new error and the return status code for
+the application.</p>
+
+          </td>
+          <td class="code leading">
+          <!-- Disable code upload -->
+	        <!--  -->
+            <div class="highlight"><pre>	<span class="k">return</span> <span class="nx">cli</span><span class="p">.</span><span class="nx">NewExitError</span><span class="p">(</span><span class="s">&quot;no commands provided&quot;</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>act will detect the subcommand from c and print the appropriate message
+or subcommand help if applicable.</p>
+
+          </td>
+          <td class="code leading">
+          <!-- Disable code upload -->
+	        <!--  -->
+            <div class="highlight"><pre><span class="kd">func</span> <span class="nx">act</span><span class="p">(</span><span class="nx">c</span> <span class="o">*</span><span class="nx">cli</span><span class="p">.</span><span class="nx">Context</span><span class="p">)</span> <span class="kt">error</span> <span class="p">{</span>
+</pre></div>
+
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>Check for arguments after the subcommand</p>
+
+          </td>
+          <td class="code leading">
+          <!-- Disable code upload -->
+	        <!--  -->
+            <div class="highlight"><pre>	<span class="k">if</span> <span class="nx">c</span><span class="p">.</span><span class="nx">Args</span><span class="p">().</span><span class="nx">Present</span><span class="p">()</span> <span class="p">{</span>
+</pre></div>
+
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>Get the next argument.Can also do c.Args().Get(0)
+c.NArgs() returns the number of arguments and can be used in a for
+along with .Get(i)</p>
+
+          </td>
+          <td class="code leading">
+          <!-- Disable code upload -->
+	        <!--  -->
+            <div class="highlight"><pre>		<span class="nx">t</span> <span class="o">:=</span> <span class="nx">c</span><span class="p">.</span><span class="nx">Args</span><span class="p">().</span><span class="nx">First</span><span class="p">()</span>
+</pre></div>
+
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>c.Command.Name has command name and c.Command has a lot more <a href="https://godoc.org/github.com/dkolbly/cli#Command">info</a>
+Knowing the subcommand we can call different functions here.</p>
+
+          </td>
+          <td class="code leading">
+          <!-- Disable code upload -->
+	        <!--  -->
+            <div class="highlight"><pre>		<span class="nx">cmdName</span> <span class="o">:=</span> <span class="nx">c</span><span class="p">.</span><span class="nx">Command</span><span class="p">.</span><span class="nx">Name</span>
+		<span class="nx">fmt</span><span class="p">.</span><span class="nx">Printf</span><span class="p">(</span><span class="s">&quot;%sing %s\n&quot;</span><span class="p">,</span> <span class="nx">cmdName</span><span class="p">,</span> <span class="nx">t</span><span class="p">)</span>
+		<span class="k">return</span> <span class="kc">nil</span>
+	<span class="p">}</span>
+</pre></div>
+
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>If there are no arguments, show help for that specific subcommands
+and then return with an error.</p>
+
+          </td>
+          <td class="code leading">
+          <!-- Disable code upload -->
+	        <!--  -->
+            <div class="highlight"><pre>	<span class="nx">cli</span><span class="p">.</span><span class="nx">ShowSubcommandHelp</span><span class="p">(</span><span class="nx">c</span><span class="p">)</span>
+	<span class="k">return</span> <span class="nx">cli</span><span class="p">.</span><span class="nx">NewExitError</span><span class="p">(</span><span class="s">&quot;no arguments for subcommand&quot;</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>scan will &ldquo;scan&rdquo; the target</p>
+
+          </td>
+          <td class="code leading">
+          <!-- Disable code upload -->
+	        <!--  -->
+            <div class="highlight"><pre><span class="kd">func</span> <span class="nx">scan</span><span class="p">(</span><span class="nx">c</span> <span class="o">*</span><span class="nx">cli</span><span class="p">.</span><span class="nx">Context</span><span class="p">)</span> <span class="kt">error</span> <span class="p">{</span>
+</pre></div>
+
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>Check for arguments after the subcommand</p>
+
+          </td>
+          <td class="code leading">
+          <!-- Disable code upload -->
+	        <!--  -->
+            <div class="highlight"><pre>	<span class="k">if</span> <span class="nx">c</span><span class="p">.</span><span class="nx">Args</span><span class="p">().</span><span class="nx">Present</span><span class="p">()</span> <span class="p">{</span>
+</pre></div>
+
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>Get next argument (the target)</p>
+
+          </td>
+          <td class="code leading">
+          <!-- Disable code upload -->
+	        <!--  -->
+            <div class="highlight"><pre>		<span class="nx">t</span> <span class="o">:=</span> <span class="nx">c</span><span class="p">.</span><span class="nx">Args</span><span class="p">().</span><span class="nx">First</span><span class="p">()</span>
+		<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">&quot;scanning&quot;</span><span class="p">,</span> <span class="nx">t</span><span class="p">)</span>
+		<span class="k">return</span> <span class="kc">nil</span>
+	<span class="p">}</span>
+</pre></div>
+
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>Show scan subcommand help</p>
+
+          </td>
+          <td class="code">
+          <!-- Disable code upload -->
+	        <!--  -->
+            <div class="highlight"><pre>	<span class="nx">cli</span><span class="p">.</span><span class="nx">ShowSubcommandHelp</span><span class="p">(</span><span class="nx">c</span><span class="p">)</span>
+	<span class="k">return</span> <span class="nx">cli</span><span class="p">.</span><span class="nx">NewExitError</span><span class="p">(</span><span class="s">&quot;no arguments for subcommand&quot;</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+
+          </td>
+        </tr>
+        
+      </table>
+      
+      <table>
+        
+        <tr>
+          <td class="docs">
+            <p>Running the program without any arguments will print usage.
+Same as running with -h or &ndash;help.</p>
+
+          </td>
+          <td class="code leading">
+          <!-- Disable code upload -->
+	        <!--  -->
+            <div class="highlight"><pre><span class="gp">$</span> go run urfave-cli-subcommands.go
+<span class="go">NAME:</span>
+<span class="go">   AppName - application usage</span>
+
+<span class="go">USAGE:</span>
+<span class="go">   urfave-cli-subcommands.exe [global options]</span>
+<span class="go">      command [command options] [arguments...]</span>
+
+<span class="go">DESCRIPTION:</span>
+<span class="go">   description two</span>
+</pre></div>
+
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>Note Authors slice is printed first and then Author</p>
+
+          </td>
+          <td class="code leading">
+          <!-- Disable code upload -->
+	        <!--  -->
+            <div class="highlight"><pre><span class="go">AUTHORS:</span>
+<span class="go">   Author2 &lt;author2@example.com&gt;</span>
+<span class="go">   Author3 &lt;author3@example.com&gt;</span>
+<span class="go">   Author1 &lt;author1@example.com&gt;</span>
+
+<span class="go">COMMANDS:</span>
+<span class="go">     help, h  Shows a list of commands or help for one command</span>
+</pre></div>
+
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>Subcommands are grouped based on their category</p>
+
+          </td>
+          <td class="code leading">
+          <!-- Disable code upload -->
+	        <!--  -->
+            <div class="highlight"><pre><span class="go">   Hacking:</span>
+<span class="go">     hack, haxorx, pwn  hack target</span>
+<span class="go">     crack, c           crack target</span>
+
+<span class="go">   Recon:</span>
+<span class="go">     scan, s  scan target</span>
+
+<span class="go">GLOBAL OPTIONS:</span>
+<span class="go">   --help, -h  show help</span>
+</pre></div>
+
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>Error message and status code fro cli.NewExitError</p>
+
+          </td>
+          <td class="code leading">
+          <!-- Disable code upload -->
+	        <!--  -->
+            <div class="highlight"><pre><span class="go">no commands provided</span>
+<span class="go">exit status 2</span>
+</pre></div>
+
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>Running the program with a subcommand and no arguments
+prints the scan help</p>
+
+          </td>
+          <td class="code leading">
+          <!-- Disable code upload -->
+	        <!--  -->
+            <div class="highlight"><pre><span class="gp">$</span> go run urfave-cli-subcommands.go scan
+<span class="go">NAME:</span>
+<span class="go">   urfave-cli-subcommands.exe scan - scan target</span>
+
+<span class="go">USAGE:</span>
+<span class="go">   urfave-cli-subcommands.exe scan [arguments...]</span>
+
+<span class="go">CATEGORY:</span>
+<span class="go">   Recon</span>
+<span class="go">no arguments for subcommand</span>
+<span class="go">exit status 3</span>
+</pre></div>
+
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>Calling any of hack aliases is the same as calling hack</p>
+
+          </td>
+          <td class="code leading">
+          <!-- Disable code upload -->
+	        <!--  -->
+            <div class="highlight"><pre><span class="gp">$</span> go run urfave-cli-subcommands.go pwn
+<span class="go">NAME:</span>
+<span class="go">   urfave-cli-subcommands.exe hack - hack target</span>
+
+<span class="go">USAGE:</span>
+<span class="go">   urfave-cli-subcommands.exe hack [arguments...]</span>
+
+<span class="go">CATEGORY:</span>
+<span class="go">   Hacking</span>
+<span class="go">no arguments for subcommand</span>
+<span class="go">exit status 3</span>
+</pre></div>
+
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>Calling hack with a target performs the action</p>
+
+          </td>
+          <td class="code leading">
+          <!-- Disable code upload -->
+	        <!--  -->
+            <div class="highlight"><pre><span class="gp">$</span> go run urfave-cli-subcommands.go hack <span class="m">127</span>.0.0.1:22
+<span class="go">hacking 127.0.0.1:22</span>
+</pre></div>
+
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>We can also use the hack alias (pwn)</p>
+
+          </td>
+          <td class="code">
+          <!-- Disable code upload -->
+	        <!--  -->
+            <div class="highlight"><pre><span class="gp">$</span> go run urfave-cli-subcommands.go pwn <span class="m">127</span>.0.0.1:22
+<span class="go">hacking 127.0.0.1:22</span>
+</pre></div>
+
+          </td>
+        </tr>
+        
+      </table>
+      
+      
+      <p class="next">
+        Next example: <a href="urfave-cli-flags">urfave-cli Flags</a>.
+      </p>
+      
+      
+    <p class="footer">
+        by <a href="https://parsiya.net" target="_blank">Parsia Hakimian</a> | 
+        <a href="https://twitter.com/CryptoGangsta" target="_blank">@CryptoGangsta</a> |
+        <a href="https://github.com/parsiya/securitygobyexample.com/blob/master/examples/urfave-cli-subcommands" target="_blank">source</a> | 
+        <a href="https://github.com/parsiya/securitygobyexample.com#license" target="_blank">license</a> | 
+        <a href="http://hackingwithgo.com" target="_blank">Hacking with Go Tutorials</a>
+    </p>
+    <p class="footer">
+        Based on <a href="https://gobyexample.com" target="_blank">Go by Example</a> by <a href="https://twitter.com/mmcgrana" target="_blank">@mmcgrana</a>
+    </p>
+
+    </div>
+  </body>
+</html>
+

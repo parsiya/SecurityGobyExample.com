@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Security Go by Example: urfave-cli Flags</title>
+    <link rel=stylesheet href="site.css">
+  </head>
+  <body>
+    <div class="example" id="urfave-cli-flags">
+      <h2><a href="index.html">Security Go by Example</a>: urfave-cli Flags</h2>
+      
+      <table>
+        
+        <tr>
+          <td class="docs">
+            <p><a href="https://github.com/urfave/cli">urfave-cli</a> also supports flags.</p>
+
+          </td>
+          <td class="code empty leading">
+          <!-- Disable code upload -->
+	        <!--  -->
+            
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>godoc: <a href="https://godoc.org/github.com/urfave/cli">https://godoc.org/github.com/urfave/cli</a></p>
+
+          </td>
+          <td class="code empty leading">
+          <!-- Disable code upload -->
+	        <!--  -->
+            
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            
+          </td>
+          <td class="code leading">
+          <!-- Disable code upload -->
+	        <!-- <a href="http://play.golang.org/p/"><img title="Run code" src="play.png" class="run" /></a> -->
+            <div class="highlight"><pre><span class="kn">package</span> <span class="nx">main</span>
+</pre></div>
+
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            
+          </td>
+          <td class="code leading">
+          <!-- Disable code upload -->
+	        <!--  -->
+            <div class="highlight"><pre><span class="kn">import</span> <span class="p">(</span>
+	<span class="s">&quot;fmt&quot;</span>
+	<span class="s">&quot;os&quot;</span>
+	<span class="s">&quot;sort&quot;</span>
+</pre></div>
+
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>go get before using it</p>
+
+          </td>
+          <td class="code leading">
+          <!-- Disable code upload -->
+	        <!--  -->
+            <div class="highlight"><pre>	<span class="s">&quot;github.com/urfave/cli&quot;</span>
+<span class="p">)</span>
+</pre></div>
+
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>Variable to hold flags</p>
+
+          </td>
+          <td class="code leading">
+          <!-- Disable code upload -->
+	        <!--  -->
+            <div class="highlight"><pre><span class="kd">var</span> <span class="p">(</span>
+</pre></div>
+
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            
+          </td>
+          <td class="code leading">
+          <!-- Disable code upload -->
+	        <!--  -->
+            <div class="highlight"><pre>	<span class="nx">flags</span> <span class="p">[]</span><span class="nx">cli</span><span class="p">.</span><span class="nx">Flag</span>
+</pre></div>
+
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>Variable to hold the host flag</p>
+
+          </td>
+          <td class="code leading">
+          <!-- Disable code upload -->
+	        <!--  -->
+            <div class="highlight"><pre>	<span class="nx">host</span> <span class="kt">string</span>
+</pre></div>
+
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>Variable to hold the port flag</p>
+
+          </td>
+          <td class="code leading">
+          <!-- Disable code upload -->
+	        <!--  -->
+            <div class="highlight"><pre>	<span class="nx">port</span> <span class="kt">int</span>
+<span class="p">)</span>
+</pre></div>
+
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>Subcommands can be processed in init.</p>
+
+          </td>
+          <td class="code leading">
+          <!-- Disable code upload -->
+	        <!--  -->
+            <div class="highlight"><pre><span class="kd">func</span> <span class="nx">init</span><span class="p">()</span> <span class="p">{</span>
+</pre></div>
+
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>Defining flags</p>
+
+          </td>
+          <td class="code leading">
+          <!-- Disable code upload -->
+	        <!--  -->
+            <div class="highlight"><pre>	<span class="nx">flags</span> <span class="p">=</span> <span class="p">[]</span><span class="nx">cli</span><span class="p">.</span><span class="nx">Flag</span><span class="p">{</span>
+</pre></div>
+
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>Creating a string flag which is the most common</p>
+
+          </td>
+          <td class="code leading">
+          <!-- Disable code upload -->
+	        <!--  -->
+            <div class="highlight"><pre>		<span class="nx">cli</span><span class="p">.</span><span class="nx">StringFlag</span><span class="p">{</span>
+</pre></div>
+
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>Alternate flags are separated by commas in Name.
+We can call -t, &ndash;t, -target, &ndash;host, etc.</p>
+
+          </td>
+          <td class="code leading">
+          <!-- Disable code upload -->
+	        <!--  -->
+            <div class="highlight"><pre>			<span class="nx">Name</span><span class="p">:</span> <span class="s">&quot;t, target, host&quot;</span><span class="p">,</span>
+</pre></div>
+
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>Default value for flag (optional) is in Value.</p>
+
+          </td>
+          <td class="code leading">
+          <!-- Disable code upload -->
+	        <!--  -->
+            <div class="highlight"><pre>			<span class="nx">Value</span><span class="p">:</span> <span class="s">&quot;127.0.0.1&quot;</span><span class="p">,</span>
+</pre></div>
+
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>Default placeholder in -h usage string is set with ``:
+&ldquo;-t HOST, &ndash;target HOST, &ndash;host HOST
+    hacking HOST (default: &ldquo;127.0.0.1&rdquo;)&rdquo;</p>
+
+          </td>
+          <td class="code leading">
+          <!-- Disable code upload -->
+	        <!--  -->
+            <div class="highlight"><pre>			<span class="nx">Usage</span><span class="p">:</span> <span class="s">&quot;hacking `HOST`&quot;</span><span class="p">,</span>
+</pre></div>
+
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>host will hold the value of flag -host</p>
+
+          </td>
+          <td class="code leading">
+          <!-- Disable code upload -->
+	        <!--  -->
+            <div class="highlight"><pre>			<span class="nx">Destination</span><span class="p">:</span> <span class="o">&amp;</span><span class="nx">host</span><span class="p">,</span>
+		<span class="p">},</span>
+</pre></div>
+
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>Creating an int flag is similar</p>
+
+          </td>
+          <td class="code leading">
+          <!-- Disable code upload -->
+	        <!--  -->
+            <div class="highlight"><pre>		<span class="nx">cli</span><span class="p">.</span><span class="nx">IntFlag</span><span class="p">{</span>
+			<span class="nx">Name</span><span class="p">:</span>        <span class="s">&quot;p, port&quot;</span><span class="p">,</span>
+			<span class="nx">Usage</span><span class="p">:</span>       <span class="s">&quot;target `PORT`&quot;</span><span class="p">,</span>
+			<span class="nx">Destination</span><span class="p">:</span> <span class="o">&amp;</span><span class="nx">port</span><span class="p">,</span>
+		<span class="p">},</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>Create a new app</p>
+
+          </td>
+          <td class="code leading">
+          <!-- Disable code upload -->
+	        <!--  -->
+            <div class="highlight"><pre><span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+</pre></div>
+
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            
+          </td>
+          <td class="code leading">
+          <!-- Disable code upload -->
+	        <!--  -->
+            <div class="highlight"><pre>	<span class="nx">app</span> <span class="o">:=</span> <span class="nx">cli</span><span class="p">.</span><span class="nx">NewApp</span><span class="p">()</span>
+</pre></div>
+
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>Set name of the program</p>
+
+          </td>
+          <td class="code leading">
+          <!-- Disable code upload -->
+	        <!--  -->
+            <div class="highlight"><pre>	<span class="nx">app</span><span class="p">.</span><span class="nx">Name</span> <span class="p">=</span> <span class="s">&quot;AppName&quot;</span>
+</pre></div>
+
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>Set application usage</p>
+
+          </td>
+          <td class="code leading">
+          <!-- Disable code upload -->
+	        <!--  -->
+            <div class="highlight"><pre>	<span class="nx">app</span><span class="p">.</span><span class="nx">Usage</span> <span class="p">=</span> <span class="s">&quot;application usage&quot;</span>
+</pre></div>
+
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>Hide version in usage</p>
+
+          </td>
+          <td class="code leading">
+          <!-- Disable code upload -->
+	        <!--  -->
+            <div class="highlight"><pre>	<span class="nx">app</span><span class="p">.</span><span class="nx">HideVersion</span> <span class="p">=</span> <span class="kc">true</span>
+</pre></div>
+
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>Set flags</p>
+
+          </td>
+          <td class="code leading">
+          <!-- Disable code upload -->
+	        <!--  -->
+            <div class="highlight"><pre>	<span class="nx">app</span><span class="p">.</span><span class="nx">Flags</span> <span class="p">=</span> <span class="nx">flags</span>
+</pre></div>
+
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>Called if no arguments are provided at runtime.
+Expects type cli.ActionFunc == &ldquo;func (*cli.Context) error&rdquo;</p>
+
+          </td>
+          <td class="code leading">
+          <!-- Disable code upload -->
+	        <!--  -->
+            <div class="highlight"><pre>	<span class="nx">app</span><span class="p">.</span><span class="nx">Action</span> <span class="p">=</span> <span class="nx">noArgs</span>
+</pre></div>
+
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>Sort flags for printing if needed, this will sort flags
+before printing in usage</p>
+
+          </td>
+          <td class="code leading">
+          <!-- Disable code upload -->
+	        <!--  -->
+            <div class="highlight"><pre>	<span class="nx">sort</span><span class="p">.</span><span class="nx">Sort</span><span class="p">(</span><span class="nx">cli</span><span class="p">.</span><span class="nx">FlagsByName</span><span class="p">(</span><span class="nx">app</span><span class="p">.</span><span class="nx">Flags</span><span class="p">))</span>
+</pre></div>
+
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>Run the app</p>
+
+          </td>
+          <td class="code leading">
+          <!-- Disable code upload -->
+	        <!--  -->
+            <div class="highlight"><pre>	<span class="nx">app</span><span class="p">.</span><span class="nx">Run</span><span class="p">(</span><span class="nx">os</span><span class="p">.</span><span class="nx">Args</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>flags can be processed in noArgs</p>
+
+          </td>
+          <td class="code leading">
+          <!-- Disable code upload -->
+	        <!--  -->
+            <div class="highlight"><pre><span class="kd">func</span> <span class="nx">noArgs</span><span class="p">(</span><span class="nx">c</span> <span class="o">*</span><span class="nx">cli</span><span class="p">.</span><span class="nx">Context</span><span class="p">)</span> <span class="kt">error</span> <span class="p">{</span>
+</pre></div>
+
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>NumFlags() returns the number of flags set.</p>
+
+          </td>
+          <td class="code leading">
+          <!-- Disable code upload -->
+	        <!--  -->
+            <div class="highlight"><pre>	<span class="k">if</span> <span class="nx">c</span><span class="p">.</span><span class="nx">NumFlags</span><span class="p">()</span> <span class="p">&lt;</span> <span class="mi">2</span> <span class="p">{</span>
+</pre></div>
+
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>If not enough flags are set, print usage and exit</p>
+
+          </td>
+          <td class="code leading">
+          <!-- Disable code upload -->
+	        <!--  -->
+            <div class="highlight"><pre>		<span class="nx">cli</span><span class="p">.</span><span class="nx">ShowAppHelp</span><span class="p">(</span><span class="nx">c</span><span class="p">)</span>
+		<span class="k">return</span> <span class="nx">cli</span><span class="p">.</span><span class="nx">NewExitError</span><span class="p">(</span><span class="s">&quot;please set both flags&quot;</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+	<span class="p">}</span>
+</pre></div>
+
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>Similar to thec;s flag package, if flags are not set, they
+will have a default value. They need to be checked
+individually.</p>
+
+          </td>
+          <td class="code">
+          <!-- Disable code upload -->
+	        <!--  -->
+            <div class="highlight"><pre>	<span class="nx">fmt</span><span class="p">.</span><span class="nx">Printf</span><span class="p">(</span><span class="s">&quot;hacking %s:%d&quot;</span><span class="p">,</span> <span class="nx">host</span><span class="p">,</span> <span class="nx">port</span><span class="p">)</span>
+	<span class="k">return</span> <span class="kc">nil</span>
+<span class="p">}</span>
+</pre></div>
+
+          </td>
+        </tr>
+        
+      </table>
+      
+      <table>
+        
+        <tr>
+          <td class="docs">
+            <p>Running the program without any arguments will print usage.
+Same as running with -h or &ndash;help.</p>
+
+          </td>
+          <td class="code leading">
+          <!-- Disable code upload -->
+	        <!--  -->
+            <div class="highlight"><pre><span class="gp">$</span> go run urfave-cli-flags.go
+<span class="go">NAME:</span>
+<span class="go">   AppName - application usage</span>
+
+<span class="go">USAGE:</span>
+<span class="go">   urfave-cli-flags.exe [global options]</span>
+<span class="go">      command [command options] [arguments...]</span>
+
+<span class="go">COMMANDS:</span>
+<span class="go">     help, h  Shows a list of commands or help for one command</span>
+
+<span class="go">GLOBAL OPTIONS:</span>
+<span class="go">   -p PORT, --port PORT                 target PORT (default: 0)</span>
+<span class="go">   -t HOST, --target HOST, </span>
+<span class="go">      --host HOST  hacking HOST (default: &quot;127.0.0.1&quot;)</span>
+<span class="go">   --help, -h                           show help</span>
+<span class="go">   --version, -v                        print the version</span>
+</pre></div>
+
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>Running without flags will return an error message</p>
+
+          </td>
+          <td class="code leading">
+          <!-- Disable code upload -->
+	        <!--  -->
+            <div class="highlight"><pre><span class="go">please set both flags</span>
+<span class="go">exit status 2</span>
+</pre></div>
+
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>Running with both flags will hack the target</p>
+
+          </td>
+          <td class="code leading">
+          <!-- Disable code upload -->
+	        <!--  -->
+            <div class="highlight"><pre><span class="gp">$</span> go run urfave-cli-flags.go -host <span class="m">127</span>.0.0.1 -port <span class="m">22</span>
+<span class="go">hacking 127.0.0.1:22</span>
+</pre></div>
+
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>Calling one flag will use the default value for the other</p>
+
+          </td>
+          <td class="code leading">
+          <!-- Disable code upload -->
+	        <!--  -->
+            <div class="highlight"><pre><span class="gp">$</span> go run urfave-cli-flags.go -port <span class="m">1234</span>
+<span class="go">hacking 127.0.0.1:1234</span>
+</pre></div>
+
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>If a default value is not set, the variable&rsquo;s default
+value will be used</p>
+
+          </td>
+          <td class="code">
+          <!-- Disable code upload -->
+	        <!--  -->
+            <div class="highlight"><pre><span class="gp">$</span> go run urfave-cli-flags.go -host <span class="m">127</span>.0.0.1
+<span class="go">hacking 127.0.0.1:0</span>
+</pre></div>
+
+          </td>
+        </tr>
+        
+      </table>
+      
+      
+      <p class="next">
+        Next example: <a href="flag-package-test">Flag Package Test</a>.
+      </p>
+      
+      
+    <p class="footer">
+        by <a href="https://parsiya.net" target="_blank">Parsia Hakimian</a> | 
+        <a href="https://twitter.com/CryptoGangsta" target="_blank">@CryptoGangsta</a> |
+        <a href="https://github.com/parsiya/securitygobyexample.com/blob/master/examples/urfave-cli-flags" target="_blank">source</a> | 
+        <a href="https://github.com/parsiya/securitygobyexample.com#license" target="_blank">license</a> | 
+        <a href="http://hackingwithgo.com" target="_blank">Hacking with Go Tutorials</a>
+    </p>
+    <p class="footer">
+        Based on <a href="https://gobyexample.com" target="_blank">Go by Example</a> by <a href="https://twitter.com/mmcgrana" target="_blank">@mmcgrana</a>
+    </p>
+
+    </div>
+  </body>
+</html>
+

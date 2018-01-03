@@ -2,12 +2,12 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Security Go by Example: test1</title>
+    <title>Security Go by Example: Flag Package Test</title>
     <link rel=stylesheet href="site.css">
   </head>
   <body>
-    <div class="example" id="test1">
-      <h2><a href="index.html">Security Go by Example</a>: test1</h2>
+    <div class="example" id="flag-package-test">
+      <h2><a href="index.html">Security Go by Example</a>: Flag Package Test</h2>
       
       <table>
         
@@ -34,7 +34,7 @@ actually useful (hardcoding URLs and IPs get old too fast).</p>
           </td>
           <td class="code leading">
           <!-- Disable code upload -->
-	        <!-- <a href="http://play.golang.org/p/PKRdgvXwSaU"><img title="Run code" src="play.png" class="run" /></a> -->
+	        <!-- <a href="http://play.golang.org/p/"><img title="Run code" src="play.png" class="run" /></a> -->
             <div class="highlight"><pre><span class="kn">package</span> <span class="nx">main</span>
 </pre></div>
 
@@ -160,15 +160,11 @@ Remember, flag methods return pointers</p>
       </table>
       
       
-      <p class="next">
-        Next example: <a href="create-tcp-connections">Create TCP Connections</a>.
-      </p>
-      
       
     <p class="footer">
         by <a href="https://parsiya.net" target="_blank">Parsia Hakimian</a> | 
         <a href="https://twitter.com/CryptoGangsta" target="_blank">@CryptoGangsta</a> |
-        <a href="https://github.com/parsiya/securitygobyexample.com/blob/master/examples/test1" target="_blank">source</a> | 
+        <a href="https://github.com/parsiya/securitygobyexample.com/blob/master/examples/flag-package-test" target="_blank">source</a> | 
         <a href="https://github.com/parsiya/securitygobyexample.com#license" target="_blank">license</a> | 
         <a href="http://hackingwithgo.com" target="_blank">Hacking with Go Tutorials</a>
     </p>
