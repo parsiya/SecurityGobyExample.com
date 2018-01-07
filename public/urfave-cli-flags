@@ -401,7 +401,10 @@ before printing in usage</p>
         
         <tr>
           <td class="docs">
-            <p>NumFlags() returns the number of flags set.</p>
+            <p>NumFlags() returns the number of flags set.
+Note: Each alternate flag is counted once. Meaning if
+a flag has 3 alternate flags (e.g. &ldquo;t, target, host&rdquo;),
+setting it will count as 3 here.</p>
 
           </td>
           <td class="code leading">
