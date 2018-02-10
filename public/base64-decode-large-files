@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Security Go by Example: Base64 Decode Large Files</title>
+    <link rel=stylesheet href="site.css">
+  </head>
+  <body>
+    <div class="example" id="base64-decode-large-files">
+      <h2><a href="index.html">Security Go by Example</a>: Base64 Decode Large Files</h2>
+      
+      <table>
+        
+        <tr>
+          <td class="docs">
+            <p>Example to demonstrate <a href="https://golang.org/pkg/encoding/base64/#NewDecoder">base64 stream decoder</a> on large files.
+It reads from an io.Reader and returns one that can be copied into an
+io.Writer. It also takes care of the new lines.</p>
+
+          </td>
+          <td class="code empty leading">
+          <!-- Disable code upload -->
+	        <!--  -->
+            
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>This code will accept a base64 encoded file (whitespace does not matter)
+with -file/&ndash;file and store the decoded bytes in filename-out.</p>
+
+          </td>
+          <td class="code leading">
+          <!-- Disable code upload -->
+	        <!-- <a href="http://play.golang.org/p/"><img title="Run code" src="play.png" class="run" /></a> -->
+            <div class="highlight"><pre><span class="kn">package</span> <span class="nx">main</span>
+</pre></div>
+
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            
+          </td>
+          <td class="code leading">
+          <!-- Disable code upload -->
+	        <!--  -->
+            <div class="highlight"><pre><span class="kn">import</span> <span class="p">(</span>
+	<span class="s">&quot;encoding/base64&quot;</span>
+	<span class="s">&quot;flag&quot;</span>
+	<span class="s">&quot;fmt&quot;</span>
+	<span class="s">&quot;io&quot;</span>
+	<span class="s">&quot;os&quot;</span>
+<span class="p">)</span>
+</pre></div>
+
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>This creates a flag parameter. Allows us to call -file or &ndash;file.</p>
+
+          </td>
+          <td class="code leading">
+          <!-- Disable code upload -->
+	        <!--  -->
+            <div class="highlight"><pre><span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+</pre></div>
+
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            
+          </td>
+          <td class="code leading">
+          <!-- Disable code upload -->
+	        <!--  -->
+            <div class="highlight"><pre>	<span class="kd">var</span> <span class="nx">filename</span> <span class="kt">string</span>
+	<span class="nx">flag</span><span class="p">.</span><span class="nx">StringVar</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">filename</span><span class="p">,</span> <span class="s">&quot;file&quot;</span><span class="p">,</span> <span class="s">&quot;&quot;</span><span class="p">,</span> <span class="s">&quot;input file&quot;</span><span class="p">)</span>
+	<span class="nx">flag</span><span class="p">.</span><span class="nx">Parse</span><span class="p">()</span>
+</pre></div>
+
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>It&rsquo;s a lie, it&rsquo;s pretty fast.</p>
+
+          </td>
+          <td class="code leading">
+          <!-- Disable code upload -->
+	        <!--  -->
+            <div class="highlight"><pre>	<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">&quot;reading input file, this may take a while&quot;</span><span class="p">)</span>
+</pre></div>
+
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>Open input file</p>
+
+          </td>
+          <td class="code leading">
+          <!-- Disable code upload -->
+	        <!--  -->
+            <div class="highlight"><pre>	<span class="nx">input</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">os</span><span class="p">.</span><span class="nx">Open</span><span class="p">(</span><span class="nx">filename</span><span class="p">)</span>
+</pre></div>
+
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>We are panic-ing with every error because we want to stop if things
+go wrong.</p>
+
+          </td>
+          <td class="code leading">
+          <!-- Disable code upload -->
+	        <!--  -->
+            <div class="highlight"><pre>	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+		<span class="nb">panic</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+	<span class="p">}</span>
+</pre></div>
+
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>Defer close input file</p>
+
+          </td>
+          <td class="code leading">
+          <!-- Disable code upload -->
+	        <!--  -->
+            <div class="highlight"><pre>	<span class="k">defer</span> <span class="nx">input</span><span class="p">.</span><span class="nx">Close</span><span class="p">()</span>
+</pre></div>
+
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>Open output file</p>
+
+          </td>
+          <td class="code leading">
+          <!-- Disable code upload -->
+	        <!--  -->
+            <div class="highlight"><pre>	<span class="nx">output</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">os</span><span class="p">.</span><span class="nx">Create</span><span class="p">(</span><span class="nx">filename</span> <span class="o">+</span> <span class="s">&quot;-out&quot;</span><span class="p">)</span>
+	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+		<span class="nb">panic</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+	<span class="p">}</span>
+</pre></div>
+
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>Defer close output file</p>
+
+          </td>
+          <td class="code leading">
+          <!-- Disable code upload -->
+	        <!--  -->
+            <div class="highlight"><pre>	<span class="k">defer</span> <span class="nx">output</span><span class="p">.</span><span class="nx">Close</span><span class="p">()</span>
+</pre></div>
+
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>Create base64 stream decoder from input file. *io.File implements the
+io.Reader interface. In other words we can pass it to NewDecoder.</p>
+
+          </td>
+          <td class="code leading">
+          <!-- Disable code upload -->
+	        <!--  -->
+            <div class="highlight"><pre>	<span class="nx">decoder</span> <span class="o">:=</span> <span class="nx">base64</span><span class="p">.</span><span class="nx">NewDecoder</span><span class="p">(</span><span class="nx">base64</span><span class="p">.</span><span class="nx">StdEncoding</span><span class="p">,</span> <span class="nx">input</span><span class="p">)</span>
+</pre></div>
+
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>Output of decoder is also io.Reader, we can use io.Copy to copy it to
+output file directly.</p>
+
+          </td>
+          <td class="code leading">
+          <!-- Disable code upload -->
+	        <!--  -->
+            <div class="highlight"><pre>	<span class="nx">io</span><span class="p">.</span><span class="nx">Copy</span><span class="p">(</span><span class="nx">output</span><span class="p">,</span> <span class="nx">decoder</span><span class="p">)</span>
+</pre></div>
+
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            
+          </td>
+          <td class="code">
+          <!-- Disable code upload -->
+	        <!--  -->
+            <div class="highlight"><pre>	<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">&quot;storing base64 decoder input file&quot;</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+
+          </td>
+        </tr>
+        
+      </table>
+      
+      <table>
+        
+        <tr>
+          <td class="docs">
+            <p>Running the code on a 150 million line (2 characters on
+each line) took only 3 seconds on my machine.
+Measure-Command is the equivalent of time in PowerShell.</p>
+
+          </td>
+          <td class="code">
+          <!-- Disable code upload -->
+	        <!--  -->
+            <div class="highlight"><pre><span class="go">PS&gt; Measure-Command{go run .\base64-decode.go -file input.txt}</span>
+
+<span class="go">Days              : 0</span>
+<span class="go">Hours             : 0</span>
+<span class="go">Minutes           : 0</span>
+<span class="go">Seconds           : 2</span>
+<span class="go">Milliseconds      : 960</span>
+<span class="go">Ticks             : 29604607</span>
+<span class="go">TotalDays         : 3.42645914351852E-05</span>
+<span class="go">TotalHours        : 0.000822350194444444</span>
+<span class="go">TotalMinutes      : 0.0493410116666667</span>
+<span class="go">TotalSeconds      : 2.9604607</span>
+<span class="go">TotalMilliseconds : 2960.4607</span>
+</pre></div>
+
+          </td>
+        </tr>
+        
+      </table>
+      
+      
+      <p class="next">
+        Next example: <a href="urfave-cli-subcommands">urfave-cli Subcommands</a>.
+      </p>
+      
+      
+    <p class="footer">
+        by <a href="https://parsiya.net" target="_blank">Parsia Hakimian</a> | 
+        <a href="https://twitter.com/CryptoGangsta" target="_blank">@CryptoGangsta</a> |
+        <a href="https://github.com/parsiya/securitygobyexample.com/blob/master/examples/base64-decode-large-files" target="_blank">source</a> | 
+        <a href="https://github.com/parsiya/securitygobyexample.com#license" target="_blank">license</a> | 
+        <a href="http://hackingwithgo.com" target="_blank">Hacking with Go Tutorials</a>
+    </p>
+    <p class="footer">
+        Based on <a href="https://gobyexample.com" target="_blank">Go by Example</a> by <a href="https://twitter.com/mmcgrana" target="_blank">@mmcgrana</a>
+    </p>
+
+    </div>
+  </body>
+</html>
+
