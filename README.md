@@ -1,3 +1,5 @@
+# I let the domain expire. I don't own it anymore!
+
 ## Security Go by Example
 Source for [Security Go by Example](http://SecurityGobyExample.com). A hands-on introduction to Go for security professionals and inspired by the excellent [Go by Example](https://gobyexample.com).
 
